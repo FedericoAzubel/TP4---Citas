@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { Mensaje } from './Mensaje';
 
-export const Formulario = ({setMsg, setCita}) => {
+
+export const Formulario = ({setMsg, setCitas, i, setI}) => {
   const [cita, setCita] = useState({
     mascota: '',
     dueño: '',
     fecha: '',
     hora: '',
-    sintomas: ''
+    sintomas: '',
+    id: i
   });
 
   const handleChange = (e) => {
@@ -18,20 +21,24 @@ export const Formulario = ({setMsg, setCita}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     const hayCamposVacios = Object.values(cita).some(valor => valor.trim() === '');
     if(hayCamposVacios) {
         setMsg({ text: "Los campos son inválidos", type: "red" });
     }
     else {
-        setCita(prev => [...prev, cita]);
+        setCitas(prev => [...prev, cita]);
         setMsg({ text: "", type: "" });
+        setI(prev => prev + 1);
+        console.log('Cita enviada:', cita);
     }
-    console.log('Cita enviada:', cita);
   };
 
   return (
     <div className="one-half column">
       <h2>Crear mi Cita</h2>
+      <Mensaje msg={msg}/>
+
       <form onSubmit={handleSubmit}>
         <label>Nombre Mascota</label>
         <input
@@ -79,7 +86,7 @@ export const Formulario = ({setMsg, setCita}) => {
           onChange={handleChange}
         ></textarea>
 
-        <button type="submit" className="u-full-width button-primary" onClick={handleSubmit}>
+        <button type="submit" className="u-full-width button-primary">
           Agregar Cita
         </button>
       </form>

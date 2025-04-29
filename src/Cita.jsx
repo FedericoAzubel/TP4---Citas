@@ -1,24 +1,29 @@
-import React from "react";
+import React from 'react';
 
-export const Cita = () => {
+export const Cita = ({ cita, eliminarCita }) => {
   return (
-    <div class="cita">
+    <div className="cita">
       <p>
-        Mascota: <span>Nina</span>
+        Mascota: <span>{cita.mascota}</span>
       </p>
       <p>
-        Dueño: <span>Martin</span>
+        Dueño: <span>{cita.dueño}</span>
       </p>
       <p>
-        Fecha: <span>2021-08-05</span>
+        Fecha: <span>{cita.fecha}</span>
       </p>
       <p>
-        Hora: <span>08:20</span>
+        Hora: <span>{cita.hora}</span>
       </p>
       <p>
-        Sintomas: <span>Le duele la pierna</span>
+        Síntomas: <span>{cita.sintomas}</span>
       </p>
-      <button class="button elimnar u-full-width">Eliminar ×</button>
+      <button
+        className="button eliminar u-full-width"
+        onClick={() => eliminarCita(cita.id)}
+      >
+        Eliminar ×
+      </button>
     </div>
   );
 };
