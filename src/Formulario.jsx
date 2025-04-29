@@ -1,43 +1,55 @@
-import React, { useState } from 'react';
-import { Mensaje } from './Mensaje';
+import React, { useState } from "react";
+import { Mensaje } from "./Mensaje";
 
-
-export const Formulario = ({setMsg, setCitas, i, setI}) => {
+export const Formulario = ({ msg, setMsg, setCitas, i, setI }) => {
   const [cita, setCita] = useState({
-    mascota: '',
-    dueño: '',
-    fecha: '',
-    hora: '',
-    sintomas: '',
-    id: i
+    mascota: "",
+    dueño: "",
+    fecha: "",
+    hora: "",
+    sintomas: "",
+    id: i,
   });
 
   const handleChange = (e) => {
     setCita({
       ...cita,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const hayCamposVacios = Object.values(cita).some(valor => valor.trim() === '');
-    if(hayCamposVacios) {
-        setMsg({ text: "Los campos son inválidos", type: "red" });
-    }
-    else {
-        setCitas(prev => [...prev, cita]);
-        setMsg({ text: "", type: "" });
-        setI(prev => prev + 1);
-        console.log('Cita enviada:', cita);
+
+    const hayCamposVacios = Object.values(cita).some(
+      (valor) => String(valor).trim() === ""
+    );
+
+    if (hayCamposVacios) {
+      setMsg({ text: "Los campos son inválidos", type: "red" });
+    } else {
+      const nuevaCita = { ...cita, id: i };
+      setCitas((prev) => [...prev, nuevaCita]);
+      setMsg({ text: "", type: "" });
+      setI((prev) => prev + 1);
+
+      // Reiniciar formulario
+      setCita({
+        mascota: "",
+        dueño: "",
+        fecha: "",
+        hora: "",
+        sintomas: "",
+      });
+
+      console.log("Cita enviada:", nuevaCita);
     }
   };
 
   return (
     <div className="one-half column">
       <h2>Crear mi Cita</h2>
-      <Mensaje msg={msg}/>
+      <Mensaje msg={msg} />
 
       <form onSubmit={handleSubmit}>
         <label>Nombre Mascota</label>

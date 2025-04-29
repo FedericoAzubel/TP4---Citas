@@ -12,8 +12,8 @@ export const Contenedor = () => {
         <h1>ADMINISTRADOR DE PACIENTES</h1>
         <div class="container">
             <div class="row">
-                <Formulario/>
-                <Listado/>
+                <Formulario msg={msg} setMsg={setMsg} setCitas={setCitas} i={i} setI={setI}/>
+                <Listado arrayCitas={arrayCitas} setCitas={setCitas}/>
             </div>
         </div>
         
